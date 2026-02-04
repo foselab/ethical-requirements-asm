@@ -1,2 +1,2 @@
 # ethical-requirements-asm
-This repository provides ASMETA models (based on Abstract State Machines) and artifacts for the formal specification and well-formedness analysis of SLEEC ethical requirements, including conflict and redundancy detection.
+This repository provides [ASMETA](https://asmeta.github.io/index.html) models (based on Abstract State Machines) and artifacts for the formal specification and well-formedness analysis of SLEEC ethical requirements, including conflict and redundancy detection.
