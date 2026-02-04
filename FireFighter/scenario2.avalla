@@ -1,0 +1,38 @@
+scenario scenario1
+//Failing run: conflict between SLEEC rules Rule3 and Rule4 at the second run step
+load firefighter.asm
+set cameraStarted := true;
+set personNearby := true;
+set alarmSounding := true;
+set temperature := 50;
+step
+check otherwiseC(doNothing) = undef;
+check otherwiseC(goHome) = doNothing;
+check otherwiseC(soundAlarm) = doNothing;
+check otherwiseC(startCamera) = undef;
+check outConstraint(DONOTHING) = undef;
+check outConstraint(GOHOME) = (WITHIN,5,MINUTE,DONOTHING);
+check outConstraint(SOUNDALARM) = (WITHIN,2,SEC,DONOTHING);
+check outConstraint(STARTCAMERA) = undef;
+check outObligation(DONOTHING) = undef;
+check outObligation(GOHOME) = false;
+check outObligation(SOUNDALARM) = true;
+check outObligation(STARTCAMERA) = undef;
+set cameraStarted := true;
+set personNearby := true;
+set alarmSounding := true;
+set temperature := 23;
+step //inconsistent update exception
+check otherwiseC(doNothing) = undef;
+check otherwiseC(goHome) = doNothing;
+check otherwiseC(soundAlarm) = doNothing;
+check otherwiseC(startCamera) = undef;
+check outConstraint(DONOTHING) = undef;
+check outConstraint(GOHOME) = (WITHIN,5,MINUTE,DONOTHING);
+check outConstraint(SOUNDALARM) = (WITHIN,2,SEC,DONOTHING);
+check outConstraint(STARTCAMERA) = undef;
+check outObligation(DONOTHING) = undef;
+check outObligation(GOHOME) = false;
+check outObligation(SOUNDALARM) = true;
+check outObligation(STARTCAMERA) = undef;
+step

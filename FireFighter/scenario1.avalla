@@ -1,0 +1,21 @@
+scenario scenario2
+//Failing run: invariant violation inv_1 by SLEEC rules Rule2 and Rule4
+load firefighter.asm
+set cameraStarted := true;
+set personNearby := true;
+set alarmSounding := false;
+set temperature := 28;
+step
+check otherwiseC(doNothing) = undef;
+check otherwiseC(goHome) = undef;
+check otherwiseC(soundAlarm) = doNothing;
+check otherwiseC(startCamera) = undef;
+check outConstraint(DONOTHING) = undef;
+check outConstraint(GOHOME) = undef;
+check outConstraint(SOUNDALARM) = (WITHIN,2,SEC,DONOTHING);
+check outConstraint(STARTCAMERA) = undef;
+check outObligation(DONOTHING) = undef;
+check outObligation(GOHOME) = true;
+check outObligation(SOUNDALARM) = true;
+check outObligation(STARTCAMERA) = undef;
+step
