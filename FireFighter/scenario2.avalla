@@ -1,5 +1,5 @@
 scenario scenario1
-//Failing run: conflict between SLEEC rules Rule3 and Rule4 at the second run step
+//Failing run: conflict between SLEEC rules R3 and R4 at the second run step
 load firefighter.asm
 set cameraStarted := true;
 set personNearby := true;
@@ -22,7 +22,7 @@ set cameraStarted := true;
 set personNearby := true;
 set alarmSounding := true;
 set temperature := 23;
-step //inconsistent update exception
+step
 check otherwiseC(doNothing) = undef;
 check otherwiseC(goHome) = doNothing;
 check otherwiseC(soundAlarm) = doNothing;

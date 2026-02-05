@@ -4,8 +4,8 @@
 
 asm firefighter4MC
 
-import STDL/StandardLibrary
-import STDL/CTLLibrary
+import ../libraries/StandardLibrary
+import ../libraries/CTLLibrary
 
 signature: 
 

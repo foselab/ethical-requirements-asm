@@ -3,9 +3,9 @@
 
 asm firefighter
 
-import STDL/StandardLibrary
-import STDL/CTLLibrary
-import STDL/SLEECLibrary
+import ../libraries/StandardLibrary
+import ../libraries/CTLLibrary
+import ../libraries/SLEECLibrary
 import firefighterHeader
 
 

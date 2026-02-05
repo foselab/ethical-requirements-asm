@@ -1,7 +1,7 @@
 module firefighterHeader 
 
-import STDL/StandardLibrary
-import STDL/SLEECLibrary
+import ../libraries/StandardLibrary
+import ../libraries/SLEECLibrary
 export *
 
 signature:	

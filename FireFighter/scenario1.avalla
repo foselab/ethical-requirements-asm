@@ -1,5 +1,5 @@
 scenario scenario2
-//Failing run: invariant violation inv_1 by SLEEC rules Rule2 and Rule4
+//Failing run: invariant violation inv_1 by SLEEC rules R2 and R4
 load firefighter.asm
 set cameraStarted := true;
 set personNearby := true;
