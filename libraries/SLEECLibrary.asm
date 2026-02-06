@@ -61,3 +61,16 @@ definitions:
 	  else if $c0 and $c1 and $c2 and $c3 and $c4 and $c5 then $o5
 	  endif endif endif endif endif endif
 	 
+	 
+	 //SLEEC constructor for 7 conditions
+	 rule r_SLEEC($c0 in Boolean, $o0 in Rule, $c1 in Boolean, $o1 in Rule, $c2 in Boolean, $o2 in Rule, $c3 in Boolean, $o3 in Rule, $c4 in Boolean, $o4 in Rule, $c5 in Boolean, $o5 in Rule, $c6 in Boolean, $o6 in Rule) =
+	  if $c0 and not $c1 then $o0 
+	  else if $c0 and $c1 and not $c2 then $o1 
+	  else if $c0 and $c1 and $c2 and not $c3 then $o2
+	  else if $c0 and $c1 and $c2 and $c3 and not $c4 then $o3
+	  else if $c0 and $c1 and $c2 and $c3 and $c4 and not $c5 then $o4
+	  else if $c0 and $c1 and $c2 and $c3 and $c4 and $c5 and not $c6 then $o5
+	   else if $c0 and $c1 and $c2 and $c3 and $c4 and $c5 and $c6 then $o6
+	  endif endif endif endif endif endif endif
+	  
+	  
