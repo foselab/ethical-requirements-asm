@@ -40,7 +40,7 @@ signature:
 	
 /* DOMAIN-GENERIC SIGNATURE */	
 	
-	controlled otherwiseC: Capability -> Capability //lib, applicable only with WITHIN time constraint
+	//controlled otherwiseC: Capability -> Capability //lib, applicable only with WITHIN time constraint
 	static doNothing : Capability //lib	
 		
 	//(output) events as obligations that arise from the SLEEC rules for the system (robot) to act
@@ -94,10 +94,11 @@ definitions:
 		//prepare out locations
 		outObligation($c) := true  
 		outConstraint($c) := $type
-		outOtherwiseObligation($c) := $alt
+		//outOtherwiseObligation($c) := $alt
 		outTimeBudget($c) := $t
 		outTimeUnit($c) := $u
-		if (isDef($alt) and $type=WITHIN) then otherwiseC($c) := $alt endif
+		if (isDef($alt) and $type=WITHIN) then outOtherwiseObligation($c) := $alt else outOtherwiseObligation($c) := doNothing endif
+		
 	endpar		
 		
 	//Jan 2026	NEW
@@ -108,10 +109,10 @@ definitions:
 		//prepare out locations
 		outObligation($c) := $v  //Jan 2026 NEW
 		outConstraint($c) := $type
-		outOtherwiseObligation($c) := $alt
+		//outOtherwiseObligation($c) := $alt
 		outTimeBudget($c) := $t
 		outTimeUnit($c) := $u
-		if (isDef($alt) and $type=WITHIN) then otherwiseC($c) := $alt endif
+		if (isDef($alt) and $type=WITHIN) then outOtherwiseObligation($c) := $alt else outOtherwiseObligation($c) := doNothing endif
 	endpar		
 
 	/* DOMAIN-SPECIFIC CONTROL RULES*/
@@ -169,7 +170,6 @@ definitions:
 	 		par
 				outConstraint($c) := undef 
 				outObligation($c) := false //undef not working for the model checher
-				otherwiseC($c) := undef
 			endpar
 	
 	
@@ -195,4 +195,3 @@ definitions:
 
 default init s0:
 
-function otherwiseC($c in Capability) = undef

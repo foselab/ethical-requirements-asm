@@ -10,8 +10,7 @@ signature:
 	enum domain TimerUnit={NANOSEC, MILLISEC, SEC, MINUTE, HOUR}
 	enum domain TCType = {AFTER, WITHIN} 
 	abstract domain Capability 
-
-	controlled otherwiseC: Capability -> Capability //lib, applicable only with WITHIN time constraint
+	
 	static doNothing : Capability 
 	
 

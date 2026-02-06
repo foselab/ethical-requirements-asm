@@ -67,8 +67,8 @@ definitions:
 	par 
 		//prepare out locations
 		outObligation(id($c)) := true  
-		outConstraint(id($c)) := ($type,$t,$u,id($alt))
-		if (isDef($alt) and $type=WITHIN) then otherwiseC($c) := $alt endif
+		if (isDef($alt) and $type=WITHIN) then outConstraint(id($c)) := ($type,$t,$u,id($alt))
+		else outConstraint(id($c)) := ($type,$t,$u,id(doNothing)) endif
 	endpar		
 		
 	
@@ -78,8 +78,8 @@ definitions:
 	par 
 		//prepare out locations
 		outObligation(id($c)) := $v  //Jan 2026 NEW
-		outConstraint(id($c)) := ($type,$t,$u,id($alt))
-		if (isDef($alt) and $type=WITHIN) then otherwiseC($c) := $alt endif
+		if (isDef($alt) and $type=WITHIN) then outConstraint(id($c)) := ($type,$t,$u,id($alt))
+		else outConstraint(id($c)) := ($type,$t,$u,id(doNothing)) endif
 	endpar		
 		
 		

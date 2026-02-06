@@ -88,7 +88,6 @@ definitions:
 	 		par
 				outConstraint(id($c)) := undef 
 				outObligation(id($c)) := undef 
-				otherwiseC($c) := undef
 			endpar
 	
 	
