@@ -22,12 +22,13 @@ ethical-requirements-asm
 |       firefighter.asm                         # ASM model encoding the Firefighter UAV case study's SLEEC rules in AsmetaL
 |       firefighter4MC.asm                      # Simplified ASM model for AsmetaSMV (Asmeta Model Checker)
 |       firefighterHeader.asm                   # ASM model containing signatures and definitions for the case study
-|       firefighter.sleec               # SLEEC DSL model for the case study
+|       firefighter.sleec                       # SLEEC DSL model for the case study
 |       scenario1.avalla                        # AsmetaV (ASMETA Validator) scenario 1 specification
 |       scenario2.avalla                        # AsmetaV (ASMETA Validator) scenario 2 specification
+|       scenario3.avalla                        # AsmetaV (ASMETA Validator) scenario 3 specification
 |
 ├---RoboticAssistiveDressing                    # Robotic Assistive Dressing (RAD) case study models
-|       dressingrobot.sleec        # SLEEC DSL model for the case study
+|       dressingrobot.sleec                     # SLEEC DSL model for the case study
 |       dressingrobot.asm                       # ASM model encoding the Robotic Assistive Dressing (RAD) case study's SLEEC rules in AsmetaL
 |       dressingrobotHeader.asm                 # ASM model containing signatures and definitions for the case study
 |
