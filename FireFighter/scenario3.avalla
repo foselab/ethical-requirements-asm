@@ -1,0 +1,18 @@
+//personNearby = true
+//temperature 16  -> No SLEEC rule is triggered
+scenario scenario3
+load firefighter.asm
+set cameraStarted := false;
+set alarmSounding := false;
+set personNearby := true;
+set temperature := 16;
+step
+check outConstraint(STARTCAMERA) = undef;
+check outObligation(DONOTHING) = undef;
+check outConstraint(DONOTHING) = undef;
+check outConstraint(GOHOME) = undef;
+check outObligation(GOHOME) = undef;
+check outObligation(SOUNDALARM) = undef;
+check outObligation(STARTCAMERA) = undef;
+check outConstraint(SOUNDALARM) = undef;
+step
