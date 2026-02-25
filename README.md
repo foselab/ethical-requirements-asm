@@ -21,7 +21,7 @@ ethical-requirements-asm
 |       MA_report                               # Report of AsmetaMA (Asmeta Model Advisor)
 |       firefighter.asm                         # ASM model encoding the Firefighter UAV case study's SLEEC rules in AsmetaL
 |       firefighter4MC.asm                      # Simplified ASM model for AsmetaSMV (Asmeta Model Checker)
-|       firefighterHeader.asm                   # ASM model containing signatures and definitions for the case study
+|       firefighterHeader.asm                   # Model header: ASM model containing signatures and definitions for the case study
 |       firefighter.sleec                       # SLEEC DSL model for the case study
 |       scenario1.avalla                        # AsmetaV (ASMETA Validator) scenario 1 specification
 |       scenario2.avalla                        # AsmetaV (ASMETA Validator) scenario 2 specification
@@ -31,6 +31,8 @@ ethical-requirements-asm
 |       dressingrobot.sleec                     # SLEEC DSL model for the case study
 |       dressingrobot.asm                       # ASM model encoding the Robotic Assistive Dressing (RAD) case study's SLEEC rules in AsmetaL
 |       dressingrobotHeader.asm                 # ASM model containing signatures and definitions for the case study
+|       dressingrobot4MC.asm                    # Simplified ASM model for AsmetaSMV (Asmeta Model Checker)
+|       dressingrobotHeader4MC.asm              # Simplified ASM model header for AsmetaSMV (Asmeta Model Checker)
 |
 └---libraries                                   # ASM support libraries
         CTLLibrary.asm                          # ASM library file containing CTL specification facilities
