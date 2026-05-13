@@ -33,6 +33,8 @@ ethical-requirements-asm
 |       dressingrobotHeader.asm                 # ASM model containing signatures and definitions for the case study
 |       dressingrobot4MC.asm                    # Simplified ASM model for AsmetaSMV (Asmeta Model Checker)
 |       dressingrobotHeader4MC.asm              # Simplified ASM model header for AsmetaSMV (Asmeta Model Checker)
+|       sliced_dressingrobot4MC.asm             # Simplified and sliced ASM model for AsmetaSMV (Asmeta Model Checker)
+|       MA_report                               # Report of AsmetaMA (Asmeta Model Advisor)
 |
 └---libraries                                   # ASM support libraries
         CTLLibrary.asm                          # ASM library file containing CTL specification facilities
