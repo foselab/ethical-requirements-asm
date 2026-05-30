@@ -1,0 +1,38 @@
+//legal, social
+Rule1 when CameraStart and personNearby
+    then SoundAlarm
+
+//legal, ethical
+Rule2 when CameraStart and personNearby
+    then SoundAlarm within 2 seconds
+
+//legal
+// [MANUAL MODIFICATION]: 'when SoundAlarm' (capability) changed to 'when AlarmSounding' (monitored variable) 
+// to avoid overlapping between capabilities and monitored conditions.
+Rule3 when AlarmSounding
+    then not GoHome within 5 minutes
+
+//emphatatic
+Rule4 when CameraStart then SoundAlarm
+    unless personNearby then GoHome
+    unless temperature > 35
+
+Rule2_a when CameraStart and personNearby
+    then SoundAlarm within 2 seconds
+    otherwise GoHome
+
+Rule4_a when CameraStart then SoundAlarm
+    unless personNearby then GoHome
+
+RuleA when BatteryCritical and temperature < 25
+    then GoHome within 1 minutes
+
+RuleC when BatteryCritical
+    then StartCamera
+    unless personNearby then GoHome
+    unless temperature > 35 then SoundAlarm
+
+RuleD when BatteryCritical
+    then StartCamera
+    unless personNearby then SoundAlarm
+    unless temperature > 35 then GoHome

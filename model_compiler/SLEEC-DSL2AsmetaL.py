@@ -466,8 +466,8 @@ def generate_header(obligations, monitored_variables, enum_domains, module_name)
     
     header = f"""module {module_name}
 
-import libraries/StandardLibrary
-import libraries/SLEECLibrary
+import ../../libraries/StandardLibrary
+import ../../libraries/SLEECLibrary
 export *
 
 signature:
@@ -642,9 +642,9 @@ def main():
 
 asm {generated_asm_name}
 
-import libraries/StandardLibrary
-import libraries/CTLLibrary
-import libraries/SLEECLibrary
+import ../../libraries/StandardLibrary
+import ../../libraries/CTLLibrary
+import ../../libraries/SLEECLibrary
 import {generated_header_name}
 
 signature:

@@ -1,0 +1,82 @@
+// Rule1 when CurtainOpenRqt then CurtainsOpened
+//     unless userUnderDressed then RefuseRequest
+//     unless userDistressed = high then CurtainsOpened // irrelevant
+
+Rule2 when DressingStarted then CloseCurtains
+    unless medicalEmergency
+    // [MANUAL MODIFICATION]: 'buildingFloor >= f5' modified to '>= 5' to evaluate as numeric inequality rather than string comparison
+    unless buildingFloor >= 5
+    unless roomDark and notVisible
+    unless not userAssent
+
+// [MANUAL MODIFICATION]: Replaced 'userDistressed >= high' (or similar) with 'userDistressed = shigh'
+// [MANUAL MODIFICATION]: 'userDistressed > smedium' changed to '= shigh' 
+// because AsmetaL does not support inequality operators on textual enums
+Rule3 when EmotionRecognitionDetected and userDistressed = shigh then InformUser
+    unless consentGrantedwithinXmonths
+    unless not competentIndicatorRequired or not competentToGrantConsent
+
+Rule4 when DressingStarted and dressPreferenceTypeA and genderTypeB then DressinginClotingX
+    unless userAdvices
+    unless medicalEmergency
+    unless clothingItemNotFound then InformUser
+
+Rule5 when InteractionStarted then InformUserThisIsAgentnotHuman
+    unless medicalEmergency
+    unless not userConfused
+    unless theUserHasBeenInformed
+
+Rule6 when UserRequestInfo then ProvideInfo
+    unless not informationAvailable then InformUserandandReferToHumanCarer
+    unless informationDisclosureNotPermitted then InformUserandandReferToHumanCarer
+
+Rule7 when DressingStarted and admininisteringMedication then ObtainAssent
+    // [MANUAL MODIFICATION]: 'userCompetenceIndicator = N' replaced with explicit constant value '5'
+    unless userCompetenceIndicator = 5 then CheckForandObtainProxy
+    unless medicalEmergency
+    // [MANUAL MODIFICATION]: Replaced the inequality 'withholdingActivityPhysicalHarm >= moderate'
+    // [MANUAL MODIFICATION]: 'withholdingActivityPhysicalHarm >= moderate' expanded to explicit OR 
+    // to avoid enum inequality
+    unless withholdingActivityPhysicalHarm = moderate or withholdingActivityPhysicalHarm = severe
+    unless consentGranted
+    unless not consentIndicatorRequired
+    unless consentIndicatorisWithdrawn or consentIndicatorisRevoked then StopActivity
+
+Rule8 when CollectionStarted then StoreMinInfo
+
+// second version
+Rule12 when DressingStarted and userUnderDressed then DressingComplete within 2 minutes
+    unless roomTemperature < 19 then DressingComplete within 90 seconds
+    unless roomTemperature < 17 then DressingComplete within 60 seconds
+
+Rule22 when CurtainOpenRqt then CurtainsOpened within 60 seconds
+    unless userUnderDressed then RefuseRequest within 30 seconds
+    // [MANUAL MODIFICATION]: '> smedium' replaced with '= shigh', and 'MAX_RESPONSE_TIME' replaced with '50'
+    unless userDistressed = shigh then CurtainsOpened within 50 seconds
+
+Rule32 when UserFallen then SupportCalled within 1 minutes
+    unless not assentToSupportCalls
+    unless emergency
+
+Rule42 when DressingAbandoned then RetryAgreed within 3 minutes
+    otherwise {
+        SupportCalled
+        unless not assentToSupportCalls
+    }
+
+Rule52 when DressingStarted and roomTemperature >= 19 then DressingComplete within 2 minutes
+
+// third version
+Rule13 when DressingStarted then DressingSuccessful
+
+Rule23 when FallAssessed and userUnresponsive then SupportCalled
+
+Rule63 when UserFallen then HealthChecked within 30 seconds
+    // [MANUAL MODIFICATION]: 'MAX_RESPONSE_TIME' constant replaced with '50'
+    otherwise SupportCalled within 50 seconds
+
+Rule73 when OpenCurtainsRequested then CurtainsOpened within 60 seconds
+
+// Rule83 when OpenCurtainsRequested then CurtainsOpened within 60 seconds
+//     unless userUndressed then RefuseRequest within 30 seconds
+//     unless userDistressed = shigh then CurtainsOpened within 60 seconds

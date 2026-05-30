@@ -12,6 +12,8 @@ from:
 Yaman, Sinem Getir, et al. "Specification, validation and verification of social, legal, ethical, empathetic and cultural requirements for autonomous agents."*Journal of Systems and Software* 220 (2025): 112229.
 [https://doi.org/10.1016/j.jss.2024.112229](https://doi.org/10.1016/j.jss.2024.112229)
 
+Furthermore, the repository includes a model compiler to translate SLEEC rules specified in the SLEEC Domain-Specific Language (DSL) into AsmetaL models, with examples including the two case studies mentioned above (Firefighter UAV and Robotic Assistive Dressing).
+
 ## Repository structure
 ```
 ethical-requirements-asm
@@ -36,9 +38,17 @@ ethical-requirements-asm
 |       sliced_dressingrobot4MC.asm             # Simplified and sliced ASM model for AsmetaSMV (Asmeta Model Checker)
 |       MA_report                               # Report of AsmetaMA (Asmeta Model Advisor)
 |
-└---libraries                                   # ASM support libraries
-        CTLLibrary.asm                          # ASM library file containing CTL specification facilities
-        LTLLibrary.asm                          # ASM library file containing LTL specification facilities
-        SLEECLibrary.asm                        # ASM library file containing SLEEC rule constructors and specification facilities
-        StandardLibrary.asm                     # Standard ASM library file containing basic types and functions
+├---libraries                                   # ASM support libraries
+|       CTLLibrary.asm                          # ASM library file containing CTL specification facilities
+|       LTLLibrary.asm                          # ASM library file containing LTL specification facilities
+|       SLEECLibrary.asm                        # ASM library file containing SLEEC rule constructors and specification facilities
+|       StandardLibrary.asm                     # Standard ASM library file containing basic types and functions
+|
+└---model_compiler                              # Model compiler to translate SLEEC DSL to AsmetaL
+    |   README.md                               # Readme for the model compiler and how to use it
+    |   SLEEC-DSL2AsmetaL.py                    # Parser script compiling SLEEC rules to ASM code
+    |
+    ├---input                                   # Folder containing sample input SLEEC models
+    └---output                                  # Default output folder for compiled AsmetaL models
 ```
+

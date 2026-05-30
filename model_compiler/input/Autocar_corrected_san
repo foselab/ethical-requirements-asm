@@ -1,0 +1,110 @@
+// [MANUAL MODIFICATION]: Removed curly braces '{}' around all measures (e.g., {userTurnedOffSystem}) throughout the file.
+// [MANUAL MODIFICATION]: Renamed conditions referencing capabilities to past tense state variables to avoid naming conflicts
+// (e.g., condition 'TurnOnSensors' -> 'SensorsTurnedOn', 'TakeUserInput' -> 'UserInputTaken', etc.)
+R1 when UserTurnOnSystem then TurnOnSensors
+//R1b when UserTurnOnSystem then not  TurnOffSensors
+// [MANUAL MODIFICATION]: Removed 'eventually' from action 'TurnOffSensors eventually' as it is unsupported by the AsmetaL parser
+R1bb when UserTurnOffSystem then TurnOffSensors
+//
+//  Resolve situation 1 (REFINE existing corrected rule: R1b)
+R1b when UserTurnOnSystem and (not userTurnedOffSystem) then not  TurnOffSensors
+//
+R1_cont when SensorsTurnedOn then CheckSystemComponents
+R2 when SystemReady then TakeUserInput
+R3 when UserInputTaken then CalculateShortestPath
+    unless ((not destinationExists) or (not pathExists)) then DisplayError
+R3_cont when ShortestPathCalculated then DisplayRoute
+    // [MANUAL MODIFICATION]: 'riskLevel > low' replaced with 'riskLevel != low' 
+    // because AsmetaL does not support inequality operators on textual enumerative domains.
+    unless (riskLevel != low)
+    unless (not actionIsLegal)
+
+R5 when UserChangeRoute then CalculateShortestPath
+    // [MANUAL MODIFICATION]: Removed 'otherwise not ChangeCurrentDriving' from the original rule
+    // as negative alternative obligations are not natively handled by the parser.
+    unless (not commandClear) then AskForClarification
+
+R6 when UserCancelPath then ParkVehicle
+    unless (riskLevel != low) then WaitUntilChanges
+R7 when CarDriving and (carsInFront and carsBehind) then MaintainEqualDistance
+R8 when CarDriving and objectInPath then TemporarilyStopCar
+    unless (riskLevel != low) then ChangeLanes
+    unless (not multipleLanes) then TurnOnHazardsAndTemporarilyStop
+    // [MANUAL MODIFICATION]: Action 'CarDriving' was renamed to 'DriveCar'
+    // to distinguish it from the measure 'CarDriving'
+    unless (not objectInPath) then DriveCar
+//invalid rules
+R9 when CarDriving and withinLane then StayCenteredinLane
+// [MANUAL MODIFICATION]: 'riskLevel = low' used as a replacement for constructs like 'riskLevel <= low'
+    unless (userRequestedLaneChange and (environmentClear and (riskLevel = low)))
+    then ChangeLanes
+    unless ((not withinLane) or (not laneExists)) then DisplayAlert
+R10 when UserTurnOffSystem then ParkVehicle
+R10_1 when VehicleParked and userTurnedOffSystem then TurnOffSensors
+R11 when PriorityVehicleNearby then DisplayAlert
+R12 when PriorityVehicleNearby and (ambulanceBehindCar and (not ambulanceOnOppositeSide))
+    then ChangeLanes
+    unless (ambulanceNextToCar or (not multipleLanes)) then MakeSpace
+    unless (riskLevel != low)
+R13 when SeeTrafficLight and (redLight and recognizeInput) then TemporarilyStopCar
+    unless (not redLight) then TakeNewInput // unless is being used as an ‘until’ here
+R14 when SeeTrafficLight and (yellowLight and recognizeInput) then SlowDown
+    unless (not yellowLight) then TakeNewInput
+    unless (previousLight = red) then GetReadyToDrive
+R15 when SeeTrafficLight and (greenLight and recognizeInput) then DriveCar
+    unless objectInPath then WaitUntilChanges
+R16 when SeeTrafficLight and (not recognizeInput) then SlowDown
+R16_cont when VehicleSlowedDown and environmentClear then DriveCar
+// Rules 17 and 18 combined
+R17 when SystemReady and (not ((doorClosed or seatBeltOn) or destinationExists))
+    then DisplayAlert
+//  Resolve concern 1 (ADD rule r17b)
+R17b when SystemReady and (doorClosed and ((seatBeltOn and  destinationExists) and (not userSaysYes))) then AskIfUserReadyToDrive
+//
+//  Resolve concern (ADD 3 rules, 17bb, 17bbb, and 17bbbb,and REFINE r19)
+//R17bb when SystemReady and (doorClosed and ((seatBeltOn and  destinationExists) and (not userSaysYes))) then not DriveCar
+R17bbb when SystemReady and ((not userSaysYes) and (((not doorClosed) or (notseatBeltOn)) or (not destinationExists)))  then DisplayError
+//R17bbbb when ErrorDisplayed then not DriveCar
+//R19 when UserAskedIfReadyToDrive and (not userSaysYes) then not DriveCar
+// Resolving situation 3 (REFINE rule) comment r19
+R19 when UserAskedIfReadyToDrive and (not userSaysYes) then StopAutonomousAssistance
+//
+// Resolve situation 2 (REFINING , previous reoslved rule, R17bbbb)
+R17bbbb when ErrorDisplayed then StopAutonomousAssistance
+//
+// Resolve situation 4 (REFINE previous solved rule r17bb)
+R17bb when SystemReady and (doorClosed and ((seatBeltOn and  destinationExists) and (not userSaysYes))) then StopAutonomousAssistance
+//
+
+R20 when SystemReady then DisplayCarInformation
+R26 when UserTurnOffSystem then TurnOffSensors
+R21 when ShortestPathCalculated then TakeShortestPath
+    unless (riskLevel != low)
+    unless (not actionIsLegal)
+R22 when SystemReady then not RecordPeople
+    unless peopleConsentObtained
+//  Resolve redundancies  (DELETE rule Rs23 ) 
+//R23 when SystemReady then not RecordPeople
+//    unless peopleConsentObtained
+//
+// Resolve concern 2 (ADD rule R24)
+R24 when SystemReady and (not actionIsLegal) then ChangeCurrentDriving
+//
+//
+// Resolve concern 6 (ADD rule R25)
+R25 when CarDriving and (not peopleConsentObtained) then not  RecordPeople
+//
+// Resolve concern 12 (ADD rule R27I-R27XII)
+// Add a rule for all car event, to ensure that the recording is consented
+R27I when UserTurnOnSystem and (not peopleConsentObtained) then not RecordPeople
+R27II when SensorsTurnedOn and (not peopleConsentObtained) then not RecordPeople
+R27III when SystemReady and (not peopleConsentObtained) then not RecordPeople
+R27IV when ReadyToDrive and (not peopleConsentObtained) then not RecordPeople
+R27V when UserAskedIfReadyToDrive and (not peopleConsentObtained) then not RecordPeople
+R27VI when CarDriving and (not peopleConsentObtained) then not RecordPeople
+R27VII when VehicleSlowedDown and (not peopleConsentObtained) then not RecordPeople
+R27VIII when SpeedChanged and (not peopleConsentObtained) then not RecordPeople
+R27IX when LanesChanged and (not peopleConsentObtained) then not RecordPeople
+R27X when CurrentDrivingChanged and (not peopleConsentObtained) then not RecordPeople
+R27XI when EqualDistanceMaintained and (not peopleConsentObtained) then not RecordPeople
+R27XII when CenteredInLane and (not peopleConsentObtained) then not RecordPeople
